@@ -45,7 +45,7 @@ public extension ParticleEmitter {
 
         particle.type = template.type
 
-        particle.position = template.position
+        particle.position = template.position + template.positionVariation * (0.5 - Float.random)
 
         let magnitude = template.velocity + template.velocityVariation * (0.5 - Float.random)
         let angle = template.directionVariation * (0.5 - Float.random)

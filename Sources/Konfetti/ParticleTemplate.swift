@@ -10,6 +10,7 @@ import simd
 public struct ParticleTemplate: Hashable {
     public var type: Int
     public var position: vector_float2
+    public var positionVariation: vector_float2
     public var direction: vector_float2
     public var directionVariation: Float
     public var velocity: Float
@@ -27,6 +28,7 @@ public struct ParticleTemplate: Hashable {
 
     public init(type: Int,
                 position: vector_float2,
+                positionVariation: vector_float2,
                 direction: vector_float2,
                 directionVariation: Float,
                 velocity: Float,
@@ -43,6 +45,7 @@ public struct ParticleTemplate: Hashable {
                 lifetime: Float) {
         self.type = type
         self.position = position
+        self.positionVariation = positionVariation
         self.direction = direction
         self.directionVariation = directionVariation
         self.velocity = velocity
@@ -66,6 +69,7 @@ public extension ParticleTemplate {
 
     init(type: Int = 0,
          position: vector_float2,
+         positionVariation: vector_float2,
          direction: Rotation,
          directionVariation: Rotation,
          velocity: Float,
@@ -82,6 +86,7 @@ public extension ParticleTemplate {
          lifetime: Float) {
         self.init(type: type,
                   position: position,
+                  positionVariation: positionVariation,
                   direction: direction.direction,
                   directionVariation: directionVariation.radians,
                   velocity: velocity,
