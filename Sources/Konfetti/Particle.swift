@@ -13,6 +13,7 @@ public struct Particle: Hashable {
     public var type: Int = 0
     public var position: vector_float2 = .zero
     public var velocity: vector_float2 = .zero
+    public var gravity: vector_float2 = .zero
     public var rotation: Float = 0.0
     public var rotationVelocity: Float = 0.0
     public var colorStart: vector_float4 = .one
@@ -39,5 +40,25 @@ public extension Particle {
 
     var currentSize: Float {
         lerp(sizeStart, sizeEnd, lifePercentage)
+    }
+}
+
+// MARK: Internal
+
+package extension Particle {
+
+    mutating
+    func update(ts: Float) {
+        guard isActive else { return }
+
+        guard lifeRemaining > 0 else {
+            isActive = false
+            return
+        }
+
+        lifeRemaining -= ts
+        position += velocity * ts
+        rotation += rotationVelocity * ts
+        velocity += gravity * ts
     }
 }

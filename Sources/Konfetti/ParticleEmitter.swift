@@ -29,16 +29,7 @@ public extension ParticleEmitter {
 
     func update(ts: Float) {
         for i in pool.indices {
-            guard pool[i].isActive else { continue }
-
-            if pool[i].lifeRemaining <= 0 {
-                pool[i].isActive = false
-                continue
-            }
-
-            pool[i].lifeRemaining -= ts
-            pool[i].position += pool[i].velocity * ts
-            pool[i].rotation += pool[i].rotationVelocity * ts
+            pool[i].update(ts: ts)
         }
     }
 
@@ -59,6 +50,8 @@ public extension ParticleEmitter {
         let magnitude = template.velocity + template.velocityVariation * (0.5 - Float.random)
         let angle = template.directionVariation * (0.5 - Float.random)
         particle.velocity = template.direction.rotate(angle: angle) * magnitude
+
+        particle.gravity = template.gravityDirection * template.gravity
 
         particle.rotation = template.rotationSpeed * (Float.random * .pi * 2.0)
         particle.rotationVelocity = template.rotationSpeed + template.rotationSpeedVariation * (0.5 - Float.random)
@@ -83,7 +76,7 @@ public extension ParticleEmitter {
 
 public extension ParticleEmitter {
 
-    func emitParticles(_ properties: ParticleTemplate, count: Int) {
-        (0 ..< count).forEach { _ in emitParticle(properties) }
+    func emitParticles(_ template: ParticleTemplate, count: Int) {
+        (0 ..< count).forEach { _ in emitParticle(template) }
     }
 }

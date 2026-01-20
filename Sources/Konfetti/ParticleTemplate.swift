@@ -14,6 +14,8 @@ public struct ParticleTemplate: Hashable {
     public var directionVariation: Float
     public var velocity: Float
     public var velocityVariation: Float
+    public var gravity: Float
+    public var gravityDirection: vector_float2
     public var rotationSpeed: Float
     public var rotationSpeedVariation: Float
     public var colorStart: vector_float4
@@ -29,6 +31,8 @@ public struct ParticleTemplate: Hashable {
                 directionVariation: Float,
                 velocity: Float,
                 velocityVariation: Float,
+                gravity: Float,
+                gravityDirection: vector_float2,
                 rotationSpeed: Float,
                 rotationSpeedVariation: Float,
                 colorStart: vector_float4,
@@ -43,6 +47,8 @@ public struct ParticleTemplate: Hashable {
         self.directionVariation = directionVariation
         self.velocity = velocity
         self.velocityVariation = velocityVariation
+        self.gravity = gravity
+        self.gravityDirection = gravityDirection
         self.rotationSpeed = rotationSpeed
         self.rotationSpeedVariation = rotationSpeedVariation
         self.colorStart = colorStart
@@ -64,6 +70,8 @@ public extension ParticleTemplate {
          directionVariation: Rotation,
          velocity: Float,
          velocityVariation: Float,
+         gravity: Float,
+         gravityDirection: Rotation,
          rotationSpeed: Rotation,
          rotationSpeedVariation: Rotation,
          colorStart: vector_float4,
@@ -78,6 +86,8 @@ public extension ParticleTemplate {
                   directionVariation: directionVariation.radians,
                   velocity: velocity,
                   velocityVariation: velocityVariation,
+                  gravity: gravity,
+                  gravityDirection: gravityDirection.direction,
                   rotationSpeed: rotationSpeed.radians,
                   rotationSpeedVariation: rotationSpeedVariation.radians,
                   colorStart: colorStart,
@@ -86,18 +96,5 @@ public extension ParticleTemplate {
                   sizeEnd: sizeEnd,
                   sizeVariation: sizeVariation,
                   lifetime: lifetime)
-        self.position = position
-        self.direction = direction.direction
-        self.directionVariation = directionVariation.radians
-        self.velocity = velocity
-        self.velocityVariation = velocityVariation
-        self.rotationSpeed = rotationSpeed.radians
-        self.rotationSpeedVariation = rotationSpeedVariation.radians
-        self.colorStart = colorStart
-        self.colorEnd = colorEnd
-        self.sizeStart = sizeStart
-        self.sizeEnd = sizeEnd
-        self.sizeVariation = sizeVariation
-        self.lifetime = lifetime
     }
 }
